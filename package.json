@@ -5,8 +5,8 @@
   "license": "MIT",
   "author": "bxmoura",
   "type": "commonjs",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
   "files": [
     "/dist"
   ],
