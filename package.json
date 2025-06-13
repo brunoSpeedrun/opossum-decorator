@@ -7,6 +7,10 @@
   "type": "commonjs",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunoSpeedrun/opossum-decorator.git"
+  },
   "files": [
     "/dist"
   ],
