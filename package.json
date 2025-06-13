@@ -1,0 +1,44 @@
+{
+  "name": "opossum-decorator",
+  "version": "1.0.0-alpha",
+  "description": "A Decorator for opossum circuit breaker.",
+  "license": "MIT",
+  "author": "bxmoura",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "keywords": [
+    "circuit breaker",
+    "circuit-breaker",
+    "fail-fast",
+    "circuit",
+    "breaker",
+    "hystrix",
+    "rate-limiting",
+    "opossum"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "jest --runInBand --coverage --verbose"
+  },
+  "dependencies": {
+    "opossum": "9.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "29.5.14",
+    "@types/node": "24.0.1",
+    "@types/opossum": "8.1.8",
+    "jest": "30.0.0",
+    "ts-jest": "29.4.0",
+    "typescript": "5.8.3"
+  },
+  "peerDependencies": {
+    "reflect-metadata": "0.2.2"
+  },
+  "engines": {
+    "node": "^24 || ^22 || ^20"
+  }
+}

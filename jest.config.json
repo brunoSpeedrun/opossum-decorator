@@ -1,0 +1,10 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "testEnvironment": "node",
+  "testRegex": ".spec.ts$",
+  "collectCoverageFrom": ["lib/**/*.ts", "!lib/**/index.ts", "!lib/**/*.type.ts"],
+  "verbose": true,
+  "transform": {
+    "^.+\\.(t|j)s$": ["ts-jest"]
+  }
+}
