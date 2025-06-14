@@ -89,7 +89,7 @@ export function UseCircuitBreaker<TArgs extends any[]>(
         }
 
         if (maybeOptions?.setup) {
-          await maybeOptions.setup.apply(outerThis, [newCircuit, ...args]);
+          await maybeOptions.setup.apply(outerThis, [newCircuit]);
         }
 
         return newCircuit.fire.apply(newCircuit, args);
