@@ -1,6 +1,6 @@
 {
   "name": "opossum-decorator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Decorator for opossum circuit breaker.",
   "license": "MIT",
   "author": "bxmoura",
@@ -30,7 +30,8 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "test": "jest --runInBand --coverage --verbose"
+    "test": "jest --runInBand --coverage --verbose",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "opossum": "9.0.0"
