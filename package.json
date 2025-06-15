@@ -11,6 +11,10 @@
     "type": "git",
     "url": "git+https://github.com/brunoSpeedrun/opossum-decorator.git"
   },
+  "homepage": "https://github.com/brunoSpeedrun/opossum-decorator",
+  "bugs": {
+    "url": "https://github.com/brunoSpeedrun/opossum-decorator/issues"
+  },
   "files": [
     "/dist"
   ],
