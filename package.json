@@ -1,6 +1,6 @@
 {
   "name": "opossum-decorator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Decorator for opossum circuit breaker.",
   "license": "MIT",
   "author": "bxmoura",
