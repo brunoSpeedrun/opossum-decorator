@@ -215,7 +215,7 @@ If you want to return fallback when an error is filtered, you can configure it a
 
 Or, if you prefer, enable this functionality, only in some cases.
 
-```
+```typescript
 export class WordpressService {
   async findPostBySlug(slug: string) {
     const { data } = await axios.get(
