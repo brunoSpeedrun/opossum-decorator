@@ -391,5 +391,68 @@ describe('UseCircuitBreaker', () => {
       expect(value).toBe(service.fallbackValue);
       expect(fallbackCalled).toBe(true);
     });
+
+    it('should return fallback when error is filtered using default options', async () => {
+      const name = randomUUID();
+
+      registry.addDefaultOptions({ returnFallbackWhenErrorIsFiltered: true });
+
+      class Service {
+        readonly fallbackValue = 'fallback-value';
+
+        @UseCircuitBreaker({
+          options: {
+            name,
+            errorFilter: (error) => error.message === 'Not Found',
+          },
+          fallbackMethod: 'fallback',
+        })
+        async call(): Promise<string> {
+          throw new Error('Not Found');
+        }
+
+        fallback() {
+          return this.fallbackValue;
+        }
+      }
+
+      const service = new Service();
+
+      const value = await service.call();
+
+      expect(value).toBe(service.fallbackValue);
+    });
+
+    it('should return fallback when error is filtered using UseCircuitBreakerOptions', async () => {
+      const name = randomUUID();
+
+      registry.addDefaultOptions({ returnFallbackWhenErrorIsFiltered: false });
+
+      class Service {
+        readonly fallbackValue = 'fallback-value';
+
+        @UseCircuitBreaker({
+          options: {
+            name,
+            errorFilter: (error) => error.message === 'Not Found',
+          },
+          fallbackMethod: 'fallback',
+          returnFallbackWhenErrorIsFiltered: true,
+        })
+        async call(): Promise<string> {
+          throw new Error('Not Found');
+        }
+
+        fallback() {
+          return this.fallbackValue;
+        }
+      }
+
+      const service = new Service();
+
+      const value = await service.call();
+
+      expect(value).toBe(service.fallbackValue);
+    });
   });
 });

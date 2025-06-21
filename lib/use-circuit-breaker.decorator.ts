@@ -105,6 +105,34 @@ export function UseCircuitBreaker<TArgs extends any[]>(
           newCircuit.fallback(fallback);
         }
 
+        const returnFallbackWhenErrorIsFiltered =
+          maybeOptions?.returnFallbackWhenErrorIsFiltered ??
+          defaultUseCircuitBreakerOptions.returnFallbackWhenErrorIsFiltered;
+
+        const shouldReturnFallbackWhenErrorIsFiltered =
+          returnFallbackWhenErrorIsFiltered &&
+          typeof fallback === 'function' &&
+          typeof circuitOptions.errorFilter === 'function';
+
+        if (shouldReturnFallbackWhenErrorIsFiltered) {
+          const fire = newCircuit.fire;
+
+          newCircuit.fire = function (...args) {
+            return fire.apply(this, args).catch((error) => {
+              if (!circuitOptions.errorFilter(error, ...args)) {
+                return Promise.reject(error);
+              }
+
+              const result = fallback.apply(this, [...args, error]);
+
+              this.emit('fallback', result, error);
+
+              if (result instanceof Promise) return result;
+              return Promise.resolve(result);
+            });
+          };
+        }
+
         return newCircuit.fire.apply(newCircuit, args);
       },
     });

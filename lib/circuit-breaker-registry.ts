@@ -3,6 +3,7 @@ import CircuitBreaker from 'opossum';
 export type DefaultUseCircuitBreakerOptions<T extends any[]> = {
   options?: Omit<CircuitBreaker.Options<T>, 'group' | 'name'>;
   setup?: (circuit: CircuitBreaker) => Promise<void>;
+  returnFallbackWhenErrorIsFiltered?: boolean;
 };
 
 const INSTANCE = Symbol('INSTANCE');
