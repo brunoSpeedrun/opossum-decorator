@@ -123,12 +123,16 @@ export function UseCircuitBreaker<TArgs extends any[]>(
                 return Promise.reject(error);
               }
 
-              const result = fallback.apply(this, [...args, error]);
+              try {
+                const result = fallback.apply(this, [...args, error]);
 
-              this.emit('fallback', result, error);
+                this.emit('fallback', result, error);
 
-              if (result instanceof Promise) return result;
-              return Promise.resolve(result);
+                if (result instanceof Promise) return result;
+                return Promise.resolve(result);
+              } catch (err) {
+                return Promise.reject(err);
+              }
             });
           };
         }
