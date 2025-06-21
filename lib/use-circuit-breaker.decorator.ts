@@ -92,6 +92,19 @@ export function UseCircuitBreaker<TArgs extends any[]>(
           await maybeOptions.setup.apply(outerThis, [newCircuit]);
         }
 
+        let fallback;
+
+        if (
+          maybeOptions?.fallbackMethod &&
+          typeof outerThis[maybeOptions.fallbackMethod] === 'function'
+        ) {
+          fallback = outerThis[maybeOptions.fallbackMethod].bind(outerThis);
+        }
+
+        if (fallback) {
+          newCircuit.fallback(fallback);
+        }
+
         return newCircuit.fire.apply(newCircuit, args);
       },
     });

@@ -360,5 +360,36 @@ describe('UseCircuitBreaker', () => {
       expect(value).toBe(service.fallbackValue);
       expect(fallbackCalled).toBe(true);
     });
+
+    it('should use fallbackMethod option', async () => {
+      const name = randomUUID();
+      let fallbackCalled = false;
+
+      class Service {
+        readonly fallbackValue = 'fallback-value';
+
+        @UseCircuitBreaker({
+          options: { name },
+          fallbackMethod: 'fallback',
+          setup: async function (this: Service, circuit: CircuitBreaker) {
+            circuit.on('fallback', () => (fallbackCalled = true));
+          },
+        })
+        async call(): Promise<string> {
+          throw new Error('Service Unavailable');
+        }
+
+        fallback() {
+          return this.fallbackValue;
+        }
+      }
+
+      const service = new Service();
+
+      const value = await service.call();
+
+      expect(value).toBe(service.fallbackValue);
+      expect(fallbackCalled).toBe(true);
+    });
   });
 });
